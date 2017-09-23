@@ -1,5 +1,6 @@
 package com.whesh.xlsorderbuilder;
 
+import com.whesh.xlsorderbuilder.controller.OrderCopier;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -11,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,6 +24,9 @@ public class Main extends Application {
     private TextField tfOrderFilePath;
     private TextField tfPriceFilePath;
     private TextField tfLog;
+
+    private File orderFile;
+    private File priceFile;
 
     private final static List<String> extensions =
             new ArrayList<String>(Arrays.asList(new String[]{"*.xls", "*.xlsx"}));
@@ -76,10 +81,10 @@ public class Main extends Application {
         Button btnSetPriceList = createButton("btnSetPriceList", "...", 350, 75, 25, 25);
         Button btnCreateOrder = createButton("btnCreateOrder", "Create Order", 150, 125, 50, 100);
 
-
         btnSetOrderList.setOnAction(event ->{
             try {
-                tfOrderFilePath.setText(fileChooser.showOpenDialog(primaryStage).getCanonicalPath());
+                orderFile = fileChooser.showOpenDialog(primaryStage);
+                tfOrderFilePath.setText(orderFile.getCanonicalPath());
             } catch (IOException e) {
                 System.out.println("Wrong file selected");
             } catch (NullPointerException e){
@@ -89,12 +94,17 @@ public class Main extends Application {
 
         btnSetPriceList.setOnAction(event ->{
             try {
-                tfPriceFilePath.setText(fileChooser.showOpenDialog(primaryStage).getCanonicalPath());
+                priceFile = fileChooser.showOpenDialog(primaryStage);
+                tfPriceFilePath.setText(priceFile.getCanonicalPath());
             } catch (IOException e) {
                 System.out.println("Wrong file selected");
             } catch (NullPointerException e){
                 System.out.println("File not selected");
             }
+        });
+
+        btnCreateOrder.setOnAction(event -> {
+            OrderCopier orderCopier= new OrderCopier(orderFile, priceFile);
         });
 
         List<Button> btnList = new ArrayList<Button>();
