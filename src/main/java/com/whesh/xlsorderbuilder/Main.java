@@ -2,13 +2,18 @@ package com.whesh.xlsorderbuilder;
 
 import com.whesh.xlsorderbuilder.controller.OrderCopier;
 import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -17,19 +22,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class Main extends Application {
 
     private static Stage primaryStage;
     private TextField tfOrderFilePath;
     private TextField tfPriceFilePath;
-    private TextField tfLog;
+    private Label labelLog;
 
     private File orderFile;
     private File priceFile;
 
     private final static List<String> extensions =
-            new ArrayList<String>(Arrays.asList(new String[]{"*.xls", "*.xlsx"}));
+            new ArrayList<String>(Arrays.asList("*.xls", "*.xlsx"));
     private final static FileChooser fileChooser = new FileChooser();
 
 
@@ -53,7 +59,6 @@ public class Main extends Application {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel files", extensions));
 
         Pane root = new Pane();
-
 
 
         root.getChildren().addAll(initButtons());
@@ -104,7 +109,16 @@ public class Main extends Application {
         });
 
         btnCreateOrder.setOnAction(event -> {
-            OrderCopier orderCopier= new OrderCopier(orderFile, priceFile);
+            OrderCopier orderCopier = new OrderCopier(orderFile, priceFile);
+            labelLog.setText(orderCopier.getPriceOwner());
+
+            StringBuilder builder = new StringBuilder();
+            for (Map.Entry<String, Double> entry : orderCopier.getOrder().getOrderList().entrySet()){
+                builder.append(entry.getKey() + ":" + entry.getValue() + "\n");
+            }
+
+            String orderOutput = new String(builder);
+            labelLog.setText(labelLog.getText() + orderOutput);
         });
 
         List<Button> btnList = new ArrayList<Button>();
@@ -128,8 +142,20 @@ public class Main extends Application {
 
     private List initLabeles(){
         List<Label> labels = new ArrayList<Label>();
+
+        labelLog = new Label();
+        labelLog.setTranslateX(25);
+        labelLog.setTranslateY(185);
+        labelLog.setPrefSize(350, 300);
+        labelLog.setTextFill(Color.WHITE);
+        labelLog.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+        labelLog.setStyle("-fx-control-inner-background: #000000; -fx-text-fill: #FFFFFF;");
+        labelLog.setWrapText(true);
+        labelLog.setAlignment(Pos.TOP_LEFT);
+
         labels.add(createLable("Order Excel File", 15, 25, 25, 100));
         labels.add(createLable("Price Excel File", 15, 75, 25, 100));
+        labels.add(labelLog);
 
         return labels;
     }
@@ -147,16 +173,10 @@ public class Main extends Application {
         tfPriceFilePath.setTranslateY(75);
         tfPriceFilePath.setPrefSize(215, 25);
 
-        tfLog = new TextField();
-        tfLog.setTranslateX(25);
-        tfLog.setTranslateY(185);
-        tfLog.setPrefSize(350, 300);
-        tfLog.setStyle("-fx-control-inner-background: black; -fx-text-fill: white;");
-        tfLog.setEditable(false);
 
         textFields.add(tfOrderFilePath);
         textFields.add(tfPriceFilePath);
-        textFields.add(tfLog);
+//        textFields.add(labelLog);
 
         return textFields;
     }
