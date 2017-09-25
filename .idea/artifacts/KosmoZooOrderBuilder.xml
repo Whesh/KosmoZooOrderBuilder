@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="KosmoZooOrderBuilder">
+    <output-path>$PROJECT_DIR$/out/artifacts/KosmoZooOrderBuilder</output-path>
+    <root id="root">
+      <element id="archive" name="KosmoZooOrderBuilder.jar">
+        <element id="module-output" name="KosmoZooOrderBuilder" />
+      </element>
+    </root>
+  </artifact>
+</component>
