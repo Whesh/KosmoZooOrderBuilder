@@ -2,19 +2,16 @@ package com.whesh.xlsorderbuilder;
 
 import com.whesh.xlsorderbuilder.controller.OrderCopier;
 import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.scene.text.Text;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,7 +25,7 @@ public class Main extends Application {
     private TextField tfOrderFilePath;
     private TextField tfPriceFilePath;
     private Text textLog;
-    private Label labelLog;
+//    private Label labelLog;
 
     private File orderFile;
     private File priceFile;
