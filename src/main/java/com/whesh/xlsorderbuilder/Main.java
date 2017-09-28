@@ -34,7 +34,7 @@ public class Main extends Application {
     private File priceFile;
 
     private final static List<String> extensions =
-            new ArrayList<String>(Arrays.asList("*.xls", "*.xlsx"));
+            new ArrayList<String>(Arrays.asList("*.xls"));
     private final static FileChooser fileChooser = new FileChooser();
 
 
@@ -68,7 +68,7 @@ public class Main extends Application {
         textLog.setTranslateX(5);
         textLog.setTranslateY(5);
         textLog.setStyle("-fx-text-origin: top");
-        textLog.setText("Ready.");
+        textLog.setText("Выберите прайс-листы для работы и нажимите \"Создать заказ\"");
         textLog.setFill(Color.RED);
         textLog.wrappingWidthProperty().bind(scrollPane.heightProperty());
 
@@ -110,16 +110,16 @@ public class Main extends Application {
     private List initButtons(){
         Button btnSetOrderList = createButton("btnSetOrderList", "...", 350, 25, 25, 25);
         Button btnSetPriceList = createButton("btnSetPriceList", "...", 350, 75, 25, 25);
-        Button btnCreateOrder = createButton("btnCreateOrder", "Create Order", 150, 125, 50, 100);
+        Button btnCreateOrder = createButton("btnCreateOrder", "Создать заказ", 150, 125, 50, 100);
 
         btnSetOrderList.setOnAction(event ->{
             try {
                 orderFile = fileChooser.showOpenDialog(primaryStage);
                 tfOrderFilePath.setText(orderFile.getCanonicalPath());
             } catch (IOException e) {
-                System.out.println("Wrong file selected");
+                System.out.println("Выбран не верный формат файла");
             } catch (NullPointerException e){
-                System.out.println("File not selected");
+                System.out.println("Файл не выбран");
             }
         });
 
@@ -128,9 +128,9 @@ public class Main extends Application {
                 priceFile = fileChooser.showOpenDialog(primaryStage);
                 tfPriceFilePath.setText(priceFile.getCanonicalPath());
             } catch (IOException e) {
-                System.out.println("Wrong file selected");
+                System.out.println("Выбран не верный формат файла");
             } catch (NullPointerException e){
-                System.out.println("File not selected");
+                System.out.println("Файл не выбран");
             }
         });
 
@@ -170,8 +170,8 @@ public class Main extends Application {
     private List initLabeles(){
         List<Label> labels = new ArrayList<Label>();
 
-        labels.add(createLable("Order Excel File", 15, 25, 25, 100));
-        labels.add(createLable("Price Excel File", 15, 75, 25, 100));
+        labels.add(createLable("Файл с заказом", 15, 25, 25, 100));
+        labels.add(createLable("Прайс поставщика", 15, 75, 25, 100));
 //        labels.add(labelLog);
 
         return labels;
