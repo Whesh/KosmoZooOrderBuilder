@@ -4,31 +4,30 @@ import com.whesh.xlsorderbuilder.controller.OrderCopier;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.scene.text.Text;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 public class Main extends Application {
 
     private static Stage primaryStage;
     private TextField tfOrderFilePath;
     private TextField tfPriceFilePath;
+    private Text textLog;
     private Label labelLog;
 
     private File orderFile;
@@ -60,7 +59,34 @@ public class Main extends Application {
 
         Pane root = new Pane();
 
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setTranslateX(25);
+        scrollPane.setTranslateY(185);
+        scrollPane.setPrefSize(350, 300);
 
+        textLog = new Text();
+        textLog.setTranslateX(5);
+        textLog.setTranslateY(5);
+        textLog.setStyle("-fx-text-origin: top");
+        textLog.setText("Ready.");
+        textLog.setFill(Color.RED);
+        textLog.wrappingWidthProperty().bind(scrollPane.heightProperty());
+
+        scrollPane.setContent(textLog);
+
+
+//        labelLog = new Label();
+//        labelLog.setTranslateX(25);
+//        labelLog.setTranslateY(185);
+//        labelLog.setPrefSize(350, 300);
+//        labelLog.setTextFill(Color.WHITE);
+//        labelLog.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+//        labelLog.setStyle("-fx-control-inner-background: #000000; -fx-text-fill: #FFFFFF;");
+//        labelLog.setWrapText(true);
+//        labelLog.setAlignment(Pos.TOP_LEFT);
+
+
+        root.getChildren().add(scrollPane);
         root.getChildren().addAll(initButtons());
         root.getChildren().addAll(initLabeles());
         root.getChildren().addAll(initTextFields());
@@ -110,15 +136,16 @@ public class Main extends Application {
 
         btnCreateOrder.setOnAction(event -> {
             OrderCopier orderCopier = new OrderCopier(orderFile, priceFile);
-            labelLog.setText(orderCopier.getPriceOwner());
+//            labelLog.setText(orderCopier.getPriceOwner());
+//
+//            StringBuilder builder = new StringBuilder();
+//            for (Map.Entry<String, Double> entry : orderCopier.getOrder().getOrderList().entrySet()){
+//                builder.append(entry.getKey() + ":" + entry.getValue() + "\n");
+//            }
 
-            StringBuilder builder = new StringBuilder();
-            for (Map.Entry<String, Double> entry : orderCopier.getOrder().getOrderList().entrySet()){
-                builder.append(entry.getKey() + ":" + entry.getValue() + "\n");
-            }
-
-            String orderOutput = new String(builder);
-            labelLog.setText(labelLog.getText() + orderOutput);
+            String orderOutput = orderCopier.commit();
+            textLog.setText(orderOutput);
+//            labelLog.setText(labelLog.getText() + orderOutput);
         });
 
         List<Button> btnList = new ArrayList<Button>();
@@ -143,19 +170,9 @@ public class Main extends Application {
     private List initLabeles(){
         List<Label> labels = new ArrayList<Label>();
 
-        labelLog = new Label();
-        labelLog.setTranslateX(25);
-        labelLog.setTranslateY(185);
-        labelLog.setPrefSize(350, 300);
-        labelLog.setTextFill(Color.WHITE);
-        labelLog.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
-        labelLog.setStyle("-fx-control-inner-background: #000000; -fx-text-fill: #FFFFFF;");
-        labelLog.setWrapText(true);
-        labelLog.setAlignment(Pos.TOP_LEFT);
-
         labels.add(createLable("Order Excel File", 15, 25, 25, 100));
         labels.add(createLable("Price Excel File", 15, 75, 25, 100));
-        labels.add(labelLog);
+//        labels.add(labelLog);
 
         return labels;
     }

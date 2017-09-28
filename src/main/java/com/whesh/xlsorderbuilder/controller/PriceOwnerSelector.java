@@ -1,5 +1,7 @@
 package com.whesh.xlsorderbuilder.controller;
 
+import com.whesh.xlsorderbuilder.model.AbstractPrice;
+import com.whesh.xlsorderbuilder.model.PriceValta;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -30,5 +32,9 @@ public class PriceOwnerSelector {
 
     public String getPriceOwner() {
         return priceOwner;
+    }
+
+    public AbstractPrice getPrice(){
+        return new PriceValta();
     }
 }
