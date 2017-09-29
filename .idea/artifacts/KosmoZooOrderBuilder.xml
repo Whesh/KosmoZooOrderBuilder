@@ -1,9 +1,25 @@
 <component name="ArtifactManager">
-  <artifact type="javafx" name="KosmoZooOrderBuilder">
+  <artifact type="javafx" build-on-make="true" name="KosmoZooOrderBuilder">
     <output-path>$PROJECT_DIR$/out/artifacts/KosmoZooOrderBuilder</output-path>
+    <properties id="ant-preprocessing">
+      <options enabled="true" />
+    </properties>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="com.whesh.xlsorderbuilder.Main" />
+        <option name="description" value="" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="title" value="Order builder" />
+        <option name="vendor" value="Whesh" />
+        <option name="version" value="1.0" />
+      </options>
+    </properties>
     <root id="root">
       <element id="archive" name="KosmoZooOrderBuilder.jar">
         <element id="module-output" name="KosmoZooOrderBuilder" />
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
+        </element>
       </element>
     </root>
   </artifact>
