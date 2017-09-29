@@ -21,7 +21,7 @@ public class OrderCopier {
     private File priceFile;
     private Order order;
     private AbstractPrice price;
-    private String priceOwner;
+//    private String priceOwner;
 
     public OrderCopier(String orderFilePath, String priceFilePath){
 //        orderFile = new File(orderFilePath);
@@ -38,8 +38,8 @@ public class OrderCopier {
         order = new Order(orderFile, new PriceOrder());
         price = new PriceOwnerSelector(priceFile).getPrice();
 
-        PriceOwnerSelector priceOwnerSelector = new PriceOwnerSelector(priceFile);
-        priceOwner = priceOwnerSelector.getPriceOwner();
+//        PriceOwnerSelector priceOwnerSelector = new PriceOwnerSelector(priceFile);
+//        priceOwner = priceOwnerSelector.getPriceOwner();
     }
 
 //    public File getPriceFile() {
@@ -104,16 +104,16 @@ public class OrderCopier {
 
 //        String report = "OK";
 //        String report = new String(reportBuilder);
-        return reporter.getReport();
+        return price.getSellerName() + ":\n" + reporter.getReport();
     }
 
     public String commit(){
         return copyOrderToOwnerPrice(priceFile, order.getOrderList());
     }
 
-    public String getPriceOwner() {
-        return priceOwner;
-    }
+//    public String getPriceOwner() {
+//        return priceOwner;
+//    }
 
     public Order getOrder(){
         return order;

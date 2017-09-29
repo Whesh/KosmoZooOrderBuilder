@@ -16,17 +16,17 @@ public abstract class AbstractPrice {
         return sellerName;
     }
 
-    public abstract void setSellerName();
+    protected abstract void setSellerName();
 
     public int getProductIdCellNumber() {
         return productIdCellNumber;
     }
 
-    public abstract void setProductIdCellNumber();
+    protected abstract void setProductIdCellNumber();
 
     public int getProductColsCellNumber() {
         return productColsCellNumber;
     }
 
-    public abstract void setProductColsCellNumber();
+    protected abstract void setProductColsCellNumber();
 }

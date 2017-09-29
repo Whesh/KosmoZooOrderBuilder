@@ -20,17 +20,15 @@ public class PriceOwnerSelector {
 
             HSSFSheet hssfSheet = workbook.getSheetAt(0);
             if (hssfSheet.getRow(2).getCell(1) != null){
-                if (hssfSheet
+                if (HSSFWorkbookController.getCellValue(hssfSheet
                         .getRow(2)
-                        .getCell(1)
-                        .getStringCellValue() == "ЗАО \"Валта Пет Продактс\""){
+                        .getCell(1)).equals("ЗАО \"Валта Пет Продактс\"")){
                     detectedPrice = new PriceValta();
                 }
             } else if (hssfSheet.getRow(3).getCell(1) != null){
-                if (hssfSheet
+                if (HSSFWorkbookController.getCellValue(hssfSheet
                         .getRow(3)
-                        .getCell(1)
-                        .getStringCellValue() == "Общество с ограниченной ответственностью «Компания ДЕМЕТРА»"){
+                        .getCell(1)).equals("Общество с ограниченной ответственностью «Компания ДЕМЕТРА»")){
                     detectedPrice = new PriceDemetra();
                 }
             }
