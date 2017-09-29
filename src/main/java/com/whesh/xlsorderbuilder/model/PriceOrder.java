@@ -12,7 +12,7 @@ public class PriceOrder extends AbstractPrice {
     }
 
     @Override
-    public void setProductCollsCellNumber() {
-        productCollsCellNumber = 9;
+    public void setProductColsCellNumber() {
+        productColsCellNumber = 9;
     }
 }

@@ -60,14 +60,14 @@ public class OrderCopier {
 
                 for (Row row : hssfSheet){
                     Cell idCell = row.getCell(price.getProductIdCellNumber());
-                    Cell colsCell = row.getCell(price.getProductCollsCellNumber());
+                    Cell colsCell = row.getCell(price.getProductColsCellNumber());
 
                     if (idCell != null){
                         String id = HSSFWorkbookController.getCellValue(idCell);
                         if (id.equals(entry.getKey())){
                             // do copy value in cols cell
                             if (colsCell == null){
-                                colsCell = row.createCell(price.getProductCollsCellNumber());
+                                colsCell = row.createCell(price.getProductColsCellNumber());
                             }
                             colsCell.setCellValue(entry.getValue());
                             reporter.append(entry.getKey(), true);

@@ -14,8 +14,8 @@ public class PriceValta extends AbstractPrice {
     }
 
     @Override
-    public void setProductCollsCellNumber() {
+    public void setProductColsCellNumber() {
         // Cell number set as Excel number - 1
-        productCollsCellNumber = 6;
+        productColsCellNumber = 6;
     }
 }

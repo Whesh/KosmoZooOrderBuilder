@@ -12,7 +12,7 @@ public class PriceDemetra extends AbstractPrice{
     }
 
     @Override
-    public void setProductCollsCellNumber() {
-        productCollsCellNumber = 12;
+    public void setProductColsCellNumber() {
+        productColsCellNumber = 12;
     }
 }

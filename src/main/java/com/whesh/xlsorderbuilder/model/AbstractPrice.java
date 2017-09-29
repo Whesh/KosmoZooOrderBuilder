@@ -4,12 +4,12 @@ public abstract class AbstractPrice {
 
     protected String sellerName;
     protected int productIdCellNumber;
-    protected int productCollsCellNumber;
+    protected int productColsCellNumber;
 
     public AbstractPrice(){
         setSellerName();
         setProductIdCellNumber();
-        setProductCollsCellNumber();
+        setProductColsCellNumber();
     }
 
     public String getSellerName() {
@@ -24,9 +24,9 @@ public abstract class AbstractPrice {
 
     public abstract void setProductIdCellNumber();
 
-    public int getProductCollsCellNumber() {
-        return productCollsCellNumber;
+    public int getProductColsCellNumber() {
+        return productColsCellNumber;
     }
 
-    public abstract void setProductCollsCellNumber();
+    public abstract void setProductColsCellNumber();
 }
