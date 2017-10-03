@@ -42,6 +42,14 @@ public class OrderCopier {
 //        priceOwner = priceOwnerSelector.getPriceOwner();
     }
 
+    public OrderCopier(File orderFile, File priceFile, AbstractPrice price){
+        this.orderFile = orderFile;
+        this.priceFile = priceFile;
+
+        order = new Order(orderFile, new PriceOrder());
+        this.price = price;
+    }
+
 //    public File getPriceFile() {
 //        return priceFile;
 //    }

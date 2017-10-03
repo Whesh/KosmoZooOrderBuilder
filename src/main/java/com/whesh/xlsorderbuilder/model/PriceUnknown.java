@@ -2,9 +2,9 @@ package com.whesh.xlsorderbuilder.model;
 
 public class PriceUnknown extends AbstractPrice {
 
-    public PriceUnknown(String sellerName, int productIdCellNumber, int productColsCellNumber){
+    public PriceUnknown(String sellerName, int productArticulCellNumber, int productColsCellNumber){
         setSellerName(sellerName);
-        setArticulCellNumber(productIdCellNumber);
+        setArticulCellNumber(productArticulCellNumber);
         setProductColsCellNumber(productColsCellNumber);
     }
 

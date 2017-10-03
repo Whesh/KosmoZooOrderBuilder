@@ -1,12 +1,12 @@
 package com.whesh.xlsorderbuilder;
 
 import com.whesh.xlsorderbuilder.controller.OrderCopier;
+import com.whesh.xlsorderbuilder.model.PriceUnknown;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -22,8 +22,11 @@ import java.util.List;
 public class Main extends Application {
 
     private static Stage primaryStage;
+    private CheckBox cbUserSettings;
     private TextField tfOrderFilePath;
     private TextField tfPriceFilePath;
+    private TextField tfArticulCell;
+    private TextField tfColsCell;
     private Text textLog;
 //    private Label labelLog;
 
@@ -56,9 +59,32 @@ public class Main extends Application {
 
         Pane root = new Pane();
 
+        cbUserSettings = new CheckBox();
+        cbUserSettings.setTranslateX(25);
+        cbUserSettings.setTranslateY(125);
+        cbUserSettings.setPrefSize(250, 25);
+        cbUserSettings.setSelected(false);
+        cbUserSettings.setText("Пользовательские настройки");
+
+        cbUserSettings.selectedProperty().addListener((observable, oldValue, newValue) -> {
+
+            if (newValue){
+                tfArticulCell.setEditable(true);
+                tfArticulCell.setDisable(false);
+                tfColsCell.setEditable(true);
+                tfColsCell.setDisable(false);
+            } else if (!newValue){
+                tfArticulCell.setEditable(false);
+                tfArticulCell.setDisable(true);
+                tfColsCell.setEditable(false);
+                tfColsCell.setDisable(true);
+            }
+
+        });
+
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setTranslateX(25);
-        scrollPane.setTranslateY(185);
+        scrollPane.setTranslateY(300);
         scrollPane.setPrefSize(350, 300);
 
         textLog = new Text();
@@ -84,6 +110,7 @@ public class Main extends Application {
 
 
         root.getChildren().add(scrollPane);
+        root.getChildren().add(cbUserSettings);
         root.getChildren().addAll(initButtons());
         root.getChildren().addAll(initLabeles());
         root.getChildren().addAll(initTextFields());
@@ -107,7 +134,7 @@ public class Main extends Application {
     private List initButtons(){
         Button btnSetOrderList = createButton("btnSetOrderList", "...", 350, 25, 25, 25);
         Button btnSetPriceList = createButton("btnSetPriceList", "...", 350, 75, 25, 25);
-        Button btnCreateOrder = createButton("btnCreateOrder", "Создать заказ", 150, 125, 50, 100);
+        Button btnCreateOrder = createButton("btnCreateOrder", "Создать заказ", 150, 225, 50, 100);
 
         btnSetOrderList.setOnAction(event ->{
             try {
@@ -132,13 +159,21 @@ public class Main extends Application {
         });
 
         btnCreateOrder.setOnAction(event -> {
-            OrderCopier orderCopier = new OrderCopier(orderFile, priceFile);
-//            labelLog.setText(orderCopier.getPriceOwner());
-//
-//            StringBuilder builder = new StringBuilder();
-//            for (Map.Entry<String, Double> entry : orderCopier.getOrder().getOrderList().entrySet()){
-//                builder.append(entry.getKey() + ":" + entry.getValue() + "\n");
-//            }
+
+            OrderCopier orderCopier;
+
+            if (cbUserSettings.isSelected()){
+
+                orderCopier =
+                        new OrderCopier(orderFile,
+                                        priceFile,
+                                        new PriceUnknown("",
+                                                        Integer.valueOf(tfArticulCell.getText()) - 1,
+                                                        Integer.valueOf(tfColsCell.getText()) - 1));
+            } else {
+
+                orderCopier = new OrderCopier(orderFile, priceFile);
+            }
 
             String orderOutput = orderCopier.commit();
             textLog.setText(orderOutput);
@@ -169,6 +204,8 @@ public class Main extends Application {
 
         labels.add(createLable("Файл с заказом", 15, 25, 25, 100));
         labels.add(createLable("Прайс поставщика", 15, 75, 25, 100));
+        labels.add(createLable("Столбец артикула", 15, 175, 25, 100));
+        labels.add(createLable("Столбец кол-ва", 200, 175, 25, 100));
 //        labels.add(labelLog);
 
         return labels;
@@ -187,9 +224,24 @@ public class Main extends Application {
         tfPriceFilePath.setTranslateY(75);
         tfPriceFilePath.setPrefSize(215, 25);
 
+        tfArticulCell = new TextField();
+        tfArticulCell.setTranslateX(130);
+        tfArticulCell.setTranslateY(175);
+        tfArticulCell.setPrefSize(50, 25);
+        tfArticulCell.setEditable(false);
+        tfArticulCell.setDisable(true);
+
+        tfColsCell = new TextField();
+        tfColsCell.setTranslateX(310);
+        tfColsCell.setTranslateY(175);
+        tfColsCell.setPrefSize(50, 25);
+        tfColsCell.setEditable(false);
+        tfColsCell.setDisable(true);
 
         textFields.add(tfOrderFilePath);
         textFields.add(tfPriceFilePath);
+        textFields.add(tfArticulCell);
+        textFields.add(tfColsCell);
 //        textFields.add(labelLog);
 
         return textFields;
