@@ -53,7 +53,7 @@ public class Main extends Application {
     private void setPrimaryStage(){
         primaryStage.setTitle("Создание бланка заказа");
         primaryStage.setWidth(400);
-        primaryStage.setHeight(600);
+        primaryStage.setHeight(650);
 
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel files", extensions));
 
@@ -115,6 +115,7 @@ public class Main extends Application {
         root.getChildren().addAll(initLabeles());
         root.getChildren().addAll(initTextFields());
 
+        primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root));
     }
 
