@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class OrderCopier {
 
-//    private File orderFile;
+    private File orderFile;
     private File priceFile;
     private Order order;
     private AbstractPrice price;
@@ -32,7 +32,7 @@ public class OrderCopier {
     }
 
     public OrderCopier(File orderFile, File priceFile){
-//        this.orderFile = orderFile;
+        this.orderFile = orderFile;
         this.priceFile = priceFile;
 
         order = new Order(orderFile, new PriceOrder());
@@ -49,7 +49,7 @@ public class OrderCopier {
     private String copyOrderToOwnerPrice(File priceFile, Map<String, Double> orderMap){
 //        StringBuilder reportBuilder = new StringBuilder();
 //        String report = new String();
-        Reporter reporter = new Reporter();
+        Reporter reporter = new Reporter(orderFile, new PriceOrder(), price.getSellerName(), orderMap);
 
         try (HSSFWorkbook hssfWorkbook = HSSFWorkbookController.readFile(priceFile)){
 
@@ -59,7 +59,7 @@ public class OrderCopier {
             for (Map.Entry<String, Double> entry : orderMap.entrySet()){
 
                 for (Row row : hssfSheet){
-                    Cell idCell = row.getCell(price.getProductIdCellNumber());
+                    Cell idCell = row.getCell(price.getProductArticulCellNumber());
                     Cell colsCell = row.getCell(price.getProductColsCellNumber());
 
                     if (idCell != null){

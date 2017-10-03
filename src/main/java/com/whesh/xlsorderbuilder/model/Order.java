@@ -21,7 +21,7 @@ public class Order {
             HSSFSheet hssfSheet = hssfWorkbook.getSheetAt(0);
 
             for (Row row : hssfSheet){
-                Cell idCell = row.getCell(orderPrice.getProductIdCellNumber());
+                Cell idCell = row.getCell(orderPrice.getProductArticulCellNumber());
                 Cell colsCell = row.getCell(orderPrice.getProductColsCellNumber());
                 if (idCell != null && colsCell != null){
                     String id = HSSFWorkbookController.getCellValue(idCell);

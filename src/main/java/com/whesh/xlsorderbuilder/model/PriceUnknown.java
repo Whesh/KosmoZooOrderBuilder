@@ -4,7 +4,7 @@ public class PriceUnknown extends AbstractPrice {
 
     public PriceUnknown(String sellerName, int productIdCellNumber, int productColsCellNumber){
         setSellerName(sellerName);
-        setProductIdCellNumber(productIdCellNumber);
+        setArticulCellNumber(productIdCellNumber);
         setProductColsCellNumber(productColsCellNumber);
     }
 
@@ -18,12 +18,12 @@ public class PriceUnknown extends AbstractPrice {
     }
 
     @Override
-    protected void setProductIdCellNumber() {
-        productIdCellNumber = 0;
+    protected void setProductArticulCellNumber() {
+        productArticulCellNumber = 0;
     }
 
-    protected void setProductIdCellNumber(int productIdCellNumber){
-        this.productIdCellNumber = productIdCellNumber;
+    protected void setArticulCellNumber(int productIdCellNumber){
+        this.productArticulCellNumber = productIdCellNumber;
     }
 
     @Override
@@ -34,4 +34,19 @@ public class PriceUnknown extends AbstractPrice {
     protected void setProductColsCellNumber(int productColsCellNumber){
         this.productColsCellNumber = productColsCellNumber;
     }
+
+    @Override
+    protected void setProductNameCellNumber() {
+        productNameCellNumber = 0;
+    }
+
+    @Override
+    protected void setProductIdCellNumber() {
+        productIdCellNumber = 0;
+    }
+
+    protected void setProductNameCellNumber(int productNameCellNumber) {
+        this.productNameCellNumber = productNameCellNumber;
+    }
+
 }
